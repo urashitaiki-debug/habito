@@ -28,8 +28,14 @@
   .screen { position: absolute; inset: 0; display: flex; flex-direction: column; transition: opacity 0.35s ease, transform 0.35s ease; }
   .screen.hidden { opacity: 0; pointer-events: none; transform: translateY(24px); }
 
-  /* SPLASH */
-  #splash { background: var(--black); justify-content: space-between; align-items: center; padding: 80px 40px 60px; }
+  /* ── LOADING ── */
+  #loading { background: var(--black); align-items: center; justify-content: center; gap: 16px; }
+  .spinner { width: 36px; height: 36px; border: 3px solid rgba(255,255,255,0.2); border-top-color: var(--blue-mid); border-radius: 50%; animation: spin 0.8s linear infinite; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+  .loading-text { color: rgba(255,255,255,0.5); font-size: 14px; letter-spacing: 2px; }
+
+  /* ── LOGIN ── */
+  #login { background: var(--black); justify-content: space-between; align-items: center; padding: 80px 40px 60px; }
   .splash-logo { font-size: 13px; letter-spacing: 4px; color: rgba(255,255,255,0.4); text-transform: uppercase; }
   .splash-chevrons { display: flex; flex-direction: column; gap: 6px; align-items: center; margin: auto 0; }
   .chevron { width: 80px; height: 22px; border-left: 4px solid; border-bottom: 4px solid; border-radius: 2px; }
@@ -39,17 +45,18 @@
   .splash-text { text-align: center; }
   .splash-text h1 { font-size: 28px; font-weight: 700; color: var(--white); margin-bottom: 12px; }
   .splash-text p { font-size: 14px; color: rgba(255,255,255,0.5); line-height: 1.6; }
-  .btn-pill { padding: 16px 48px; border-radius: 50px; border: none; cursor: pointer; font-size: 16px; font-weight: 600; transition: transform 0.15s, opacity 0.15s; }
+  .btn-pill { padding: 16px 48px; border-radius: 50px; border: none; cursor: pointer; font-size: 16px; font-weight: 600; transition: transform 0.15s, opacity 0.15s; display: flex; align-items: center; justify-content: center; gap: 10px; }
   .btn-pill:active { transform: scale(0.96); opacity: 0.85; }
   .btn-white { background: var(--white); color: var(--black); }
-  .btn-blue { background: var(--blue-dark); color: var(--white); }
+  .btn-blue  { background: var(--blue-dark); color: var(--white); }
   .btn-outline { background: transparent; border: 2px solid rgba(255,255,255,0.3); color: var(--white); }
+  .google-icon { width: 20px; height: 20px; }
 
-  /* SETUP / JOIN */
+  /* ── SETUP / JOIN ── */
   .screen-header { padding: 56px 28px 20px; }
   .back-btn { width: 38px; height: 38px; border-radius: 50%; background: var(--gray-light); border: none; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; color: var(--gray-dark); margin-bottom: 24px; }
   .screen-header h2 { font-size: 26px; font-weight: 700; color: var(--black); }
-  .screen-header p { font-size: 14px; color: var(--gray-text); margin-top: 6px; }
+  .screen-header p  { font-size: 14px; color: var(--gray-text); margin-top: 6px; }
   .form-body { padding: 8px 28px 0; flex: 1; overflow-y: auto; }
   .field { margin-bottom: 20px; }
   .field label { font-size: 12px; font-weight: 600; color: var(--gray-text); letter-spacing: 1px; text-transform: uppercase; display: block; margin-bottom: 8px; }
@@ -64,39 +71,59 @@
   .room-id-big { font-size: 18px; font-weight: 700; color: var(--black); letter-spacing: 3px; }
   .copy-btn { background: var(--blue-dark); color: white; border: none; border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; }
 
-  /* MAIN */
+  /* ── ROOM SELECT ── */
+  #room-select { background: var(--white); align-items: stretch; }
+  .room-select-top { background: var(--black); border-radius: 0 0 32px 32px; padding: 52px 28px 32px; }
+  .user-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--blue); display: flex; align-items: center; justify-content: center; font-size: 18px; overflow: hidden; }
+  .avatar img { width: 100%; height: 100%; object-fit: cover; }
+  .user-info .name { font-size: 15px; font-weight: 600; color: var(--white); }
+  .user-info .sub  { font-size: 12px; color: rgba(255,255,255,0.4); }
+  .room-select-title { font-size: 22px; font-weight: 700; color: var(--white); }
+  .room-select-sub   { font-size: 13px; color: rgba(255,255,255,0.5); margin-top: 6px; }
+  .room-options { padding: 28px; display: flex; flex-direction: column; gap: 14px; flex: 1; }
+  .room-option-btn { padding: 22px 24px; border-radius: var(--radius); border: 2px solid var(--gray-mid); background: var(--white); text-align: left; cursor: pointer; transition: border-color 0.2s, background 0.2s; }
+  .room-option-btn:hover { border-color: var(--blue-dark); background: var(--blue); }
+  .room-option-btn .opt-icon { font-size: 28px; margin-bottom: 10px; }
+  .room-option-btn .opt-title { font-size: 17px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
+  .room-option-btn .opt-desc  { font-size: 13px; color: var(--gray-text); line-height: 1.5; }
+  .logout-btn { margin: 0 28px 32px; padding: 14px; border-radius: var(--radius-sm); border: none; background: var(--gray-light); color: var(--gray-text); font-size: 14px; font-weight: 600; cursor: pointer; }
+
+  /* ── MAIN ── */
   #main { background: var(--gray-light); }
   .main-top { background: var(--black); border-radius: 0 0 32px 32px; padding: 52px 28px 28px; }
+  .main-top-row { display: flex; justify-content: space-between; align-items: flex-start; }
   .top-label { font-size: 11px; letter-spacing: 3px; color: rgba(255,255,255,0.4); text-transform: uppercase; margin-bottom: 16px; }
-  .habit-name { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
+  .habit-name  { font-size: 22px; font-weight: 700; color: var(--white); margin-bottom: 4px; }
   .reward-hint { font-size: 13px; color: var(--blue-mid); display: flex; align-items: center; gap: 6px; }
+  .menu-btn { background: none; border: none; color: rgba(255,255,255,0.5); font-size: 20px; cursor: pointer; padding: 4px; }
   .progress-section { padding: 22px 28px 0; }
   .progress-label { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
-  .progress-label span { font-size: 13px; color: var(--gray-text); font-weight: 500; }
-  .progress-label strong { font-size: 15px; color: var(--black); font-weight: 700; }
+  .progress-label span  { font-size: 13px; color: var(--gray-text); font-weight: 500; }
+  .progress-label strong{ font-size: 15px; color: var(--black); font-weight: 700; }
   .progress-track { height: 10px; background: var(--gray-mid); border-radius: 99px; overflow: hidden; }
-  .progress-fill { height: 100%; background: linear-gradient(90deg, var(--blue-dark), var(--blue-mid)); border-radius: 99px; transition: width 0.6s cubic-bezier(.4,0,.2,1); }
+  .progress-fill  { height: 100%; background: linear-gradient(90deg, var(--blue-dark), var(--blue-mid)); border-radius: 99px; transition: width 0.6s cubic-bezier(.4,0,.2,1); }
   .partners { padding: 20px 28px 0; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
   .partner-card { background: var(--white); border-radius: var(--radius); padding: 18px 16px; }
   .partner-card.done { background: var(--blue); }
-  .p-role { font-size: 11px; letter-spacing: 2px; color: var(--gray-text); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
-  .p-name { font-size: 16px; font-weight: 700; color: var(--black); margin-bottom: 12px; }
+  .p-role   { font-size: 11px; letter-spacing: 2px; color: var(--gray-text); font-weight: 600; text-transform: uppercase; margin-bottom: 8px; }
+  .p-name   { font-size: 16px; font-weight: 700; color: var(--black); margin-bottom: 12px; }
   .p-status { display: flex; align-items: center; gap: 6px; font-size: 13px; font-weight: 600; }
-  .p-status.done { color: var(--blue-dark); }
+  .p-status.done    { color: var(--blue-dark); }
   .p-status.pending { color: var(--gray-text); }
   .dot { width: 8px; height: 8px; border-radius: 50%; }
-  .dot.done { background: var(--blue-dark); }
+  .dot.done    { background: var(--blue-dark); }
   .dot.pending { background: var(--gray-mid); }
   .action-area { padding: 22px 28px 0; }
   .doit-btn { width: 100%; padding: 18px; border-radius: var(--radius); border: none; font-size: 18px; font-weight: 700; cursor: pointer; transition: transform 0.15s, box-shadow 0.15s; }
-  .doit-btn.ready { background: var(--black); color: var(--white); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
+  .doit-btn.ready    { background: var(--black); color: var(--white); box-shadow: 0 8px 24px rgba(0,0,0,0.2); }
   .doit-btn.done-btn { background: var(--blue); color: var(--blue-dark); pointer-events: none; }
-  .doit-btn:active { transform: scale(0.97); }
-  .status-msg { text-align: center; margin-top: 14px; font-size: 13px; color: var(--gray-text); font-weight: 500; }
+  .doit-btn:active   { transform: scale(0.97); }
+  .status-msg         { text-align: center; margin-top: 14px; font-size: 13px; color: var(--gray-text); font-weight: 500; }
   .status-msg.waiting { color: var(--red-dark); }
-  .status-msg.both { color: var(--blue-dark); font-weight: 700; font-size: 15px; }
+  .status-msg.both    { color: var(--blue-dark); font-weight: 700; font-size: 15px; }
 
-  /* CALENDAR */
+  /* ── CALENDAR ── */
   #calendar-screen { background: var(--white); }
   .cal-header { padding: 52px 28px 20px; }
   .cal-header h2 { font-size: 22px; font-weight: 700; color: var(--black); margin-bottom: 4px; }
@@ -105,64 +132,93 @@
   .month-nav span { font-size: 16px; font-weight: 600; color: var(--black); }
   .cal-grid { padding: 0 28px 20px; }
   .day-names { display: grid; grid-template-columns: repeat(7,1fr); text-align: center; margin-bottom: 8px; }
-  .day-name { font-size: 11px; color: var(--gray-text); font-weight: 600; padding: 6px 0; }
+  .day-name  { font-size: 11px; color: var(--gray-text); font-weight: 600; padding: 6px 0; }
   .days { display: grid; grid-template-columns: repeat(7,1fr); gap: 4px; }
   .day-cell { aspect-ratio: 1; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 500; color: var(--gray-dark); }
-  .day-cell.both { background: var(--blue); color: var(--blue-dark); font-weight: 700; }
-  .day-cell.one { background: var(--red); color: var(--red-dark); }
+  .day-cell.both       { background: var(--blue); color: var(--blue-dark); font-weight: 700; }
+  .day-cell.one        { background: var(--red);  color: var(--red-dark); }
   .day-cell.today-cell { outline: 2px solid var(--blue-dark); }
   .cal-legend { padding: 0 28px; display: flex; gap: 20px; }
   .legend-item { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--gray-text); }
-  .legend-dot { width: 12px; height: 12px; border-radius: 4px; }
+  .legend-dot  { width: 12px; height: 12px; border-radius: 4px; }
 
-  /* BOTTOM NAV */
+  /* ── BOTTOM NAV ── */
   .bottom-nav { margin-top: auto; padding: 12px 28px 32px; display: flex; justify-content: space-around; align-items: center; background: var(--white); border-top: 1px solid var(--gray-mid); }
   .nav-btn { display: flex; flex-direction: column; align-items: center; gap: 4px; background: none; border: none; cursor: pointer; padding: 6px 14px; border-radius: var(--radius-sm); transition: background 0.15s; }
   .nav-btn.active { background: var(--black); }
-  .nav-btn .nav-icon { font-size: 20px; }
+  .nav-btn .nav-icon  { font-size: 20px; }
   .nav-btn .nav-label { font-size: 10px; font-weight: 600; color: var(--gray-text); }
   .nav-btn.active .nav-label { color: var(--white); }
 
-  /* REWARD */
+  /* ── REWARD ── */
   #reward-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 100; opacity: 0; pointer-events: none; transition: opacity 0.4s; }
   #reward-overlay.show { opacity: 1; pointer-events: all; }
   .reward-box { background: var(--white); border-radius: 28px; padding: 40px 32px; text-align: center; width: 300px; }
   .reward-icon { font-size: 56px; margin-bottom: 16px; }
   .reward-box h2 { font-size: 24px; font-weight: 700; color: var(--black); margin-bottom: 8px; }
-  .reward-box p { font-size: 15px; color: var(--gray-text); margin-bottom: 24px; line-height: 1.6; white-space: pre-line; }
-  .confetti-row { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
-  .confetti-dot { width: 10px; height: 10px; border-radius: 3px; animation: pop 0.5s ease both; }
+  .reward-box p  { font-size: 15px; color: var(--gray-text); margin-bottom: 24px; line-height: 1.6; white-space: pre-line; }
+  .confetti-row  { display: flex; gap: 8px; justify-content: center; margin-bottom: 20px; }
+  .confetti-dot  { width: 10px; height: 10px; border-radius: 3px; animation: pop 0.5s ease both; }
   @keyframes pop { 0%{transform:scale(0)} 60%{transform:scale(1.3)} 100%{transform:scale(1)} }
-
-  /* LOADING */
-  .loading { text-align: center; padding: 20px; font-size: 14px; color: var(--gray-text); }
 </style>
 </head>
 <body>
 <div id="app">
 
-  <!-- SPLASH -->
-  <div class="screen" id="splash">
+  <!-- LOADING -->
+  <div class="screen" id="loading">
+    <div class="spinner"></div>
+    <div class="loading-text">HABITO</div>
+  </div>
+
+  <!-- LOGIN -->
+  <div class="screen hidden" id="login">
     <div class="splash-logo">Habito</div>
     <div class="splash-chevrons">
-      <div class="chevron"></div>
-      <div class="chevron"></div>
-      <div class="chevron"></div>
+      <div class="chevron"></div><div class="chevron"></div><div class="chevron"></div>
     </div>
     <div class="splash-text">
       <h1>2人で続ける<br>習慣アプリ</h1>
       <p>一緒にやることで、<br>続けやすくなる。</p>
     </div>
-    <div style="display:flex;flex-direction:column;gap:12px;width:100%;">
-      <button class="btn-pill btn-white" onclick="showScreen('setup')">新しくはじめる</button>
-      <button class="btn-pill btn-outline" onclick="showScreen('join')">ルームに参加する</button>
+    <button class="btn-pill btn-white" style="width:100%" onclick="loginWithGoogle()">
+      <svg class="google-icon" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l3.66-2.84z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+      Googleでログイン
+    </button>
+  </div>
+
+  <!-- ROOM SELECT -->
+  <div class="screen hidden" id="room-select">
+    <div class="room-select-top">
+      <div class="user-row">
+        <div class="avatar" id="user-avatar">👤</div>
+        <div class="user-info">
+          <div class="name" id="user-display-name">-</div>
+          <div class="sub">ログイン済み</div>
+        </div>
+      </div>
+      <div class="room-select-title">ようこそ！</div>
+      <div class="room-select-sub">習慣を一緒に続けよう</div>
     </div>
+    <div class="room-options">
+      <button class="room-option-btn" onclick="showScreen('setup')">
+        <div class="opt-icon">✨</div>
+        <div class="opt-title">新しくはじめる</div>
+        <div class="opt-desc">習慣とご褒美を設定して<br>パートナーを招待する</div>
+      </button>
+      <button class="room-option-btn" onclick="showScreen('join')">
+        <div class="opt-icon">🔗</div>
+        <div class="opt-title">ルームに参加する</div>
+        <div class="opt-desc">パートナーから受け取った<br>ルームIDで参加する</div>
+      </button>
+    </div>
+    <button class="logout-btn" onclick="doLogout()">ログアウト</button>
   </div>
 
   <!-- SETUP -->
   <div class="screen hidden" id="setup">
     <div class="screen-header">
-      <button class="back-btn" onclick="showScreen('splash')">←</button>
+      <button class="back-btn" onclick="showScreen('room-select')">←</button>
       <h2>習慣を登録する</h2>
       <p>やりたいことを設定しよう</p>
     </div>
@@ -193,7 +249,7 @@
   <!-- JOIN -->
   <div class="screen hidden" id="join">
     <div class="screen-header">
-      <button class="back-btn" onclick="showScreen('splash')">←</button>
+      <button class="back-btn" onclick="showScreen('room-select')">←</button>
       <h2>ルームに参加</h2>
       <p>パートナーからIDを教えてもらおう</p>
     </div>
@@ -210,8 +266,13 @@
   <div class="screen hidden" id="main">
     <div class="main-top">
       <div class="top-label">今日の習慣</div>
-      <div class="habit-name" id="main-habit-name">読み込み中…</div>
-      <div class="reward-hint">🎁 <span id="main-reward-hint"></span></div>
+      <div class="main-top-row">
+        <div>
+          <div class="habit-name" id="main-habit-name">読み込み中…</div>
+          <div class="reward-hint">🎁 <span id="main-reward-hint"></span></div>
+        </div>
+        <button class="menu-btn" onclick="showRoomInfo()">⋯</button>
+      </div>
     </div>
     <div class="progress-section">
       <div class="progress-label">
@@ -237,8 +298,8 @@
       <div class="status-msg" id="status-msg">今日の習慣を記録しよう</div>
     </div>
     <div class="bottom-nav">
-      <button class="nav-btn active" id="nav-home" onclick="switchTab('main')"><span class="nav-icon">🏠</span><span class="nav-label">ホーム</span></button>
-      <button class="nav-btn" id="nav-cal" onclick="switchTab('calendar-screen')"><span class="nav-icon">📅</span><span class="nav-label">カレンダー</span></button>
+      <button class="nav-btn active" onclick="switchTab('main')"><span class="nav-icon">🏠</span><span class="nav-label">ホーム</span></button>
+      <button class="nav-btn" onclick="switchTab('calendar-screen')"><span class="nav-icon">📅</span><span class="nav-label">カレンダー</span></button>
       <button class="nav-btn" onclick="showRoomInfo()"><span class="nav-icon">🔗</span><span class="nav-label">シェア</span></button>
     </div>
   </div>
@@ -272,15 +333,15 @@
     </div>
   </div>
 
-  <!-- REWARD OVERLAY -->
+  <!-- REWARD -->
   <div id="reward-overlay" onclick="closeReward()">
     <div class="reward-box" onclick="event.stopPropagation()">
       <div class="reward-icon">🎉</div>
       <div class="confetti-row">
-        <div class="confetti-dot" style="background:var(--blue-dark);animation-delay:.0s"></div>
-        <div class="confetti-dot" style="background:var(--red-dark);animation-delay:.1s"></div>
-        <div class="confetti-dot" style="background:var(--blue-mid);animation-delay:.2s"></div>
-        <div class="confetti-dot" style="background:var(--red-mid);animation-delay:.15s"></div>
+        <div class="confetti-dot" style="background:var(--blue-dark);animation-delay:.00s"></div>
+        <div class="confetti-dot" style="background:var(--red-dark); animation-delay:.10s"></div>
+        <div class="confetti-dot" style="background:var(--blue-mid); animation-delay:.20s"></div>
+        <div class="confetti-dot" style="background:var(--red-mid);  animation-delay:.15s"></div>
         <div class="confetti-dot" style="background:var(--blue-dark);animation-delay:.05s"></div>
       </div>
       <h2>ご褒美達成！🎁</h2>
@@ -289,49 +350,64 @@
     </div>
   </div>
 
-</div>
+</div><!-- #app -->
 
 <script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
-import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+// ═══════════════════════════════════════════
+//  Firebase 初期化
+// ═══════════════════════════════════════════
+import { initializeApp }                          from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, GoogleAuthProvider,
+         signInWithPopup, signInWithRedirect,
+         getRedirectResult, onAuthStateChanged,
+         signOut }                                from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, getDoc, setDoc,
+         updateDoc, onSnapshot, serverTimestamp,
+         runTransaction }                         from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
-// ── Firebase設定 ──────────────────────────────
 const firebaseConfig = {
-  apiKey: "AIzaSyAKwdp3SjLzSJnYLm14UPikLsdyQVbjibE",
-  authDomain: "habito-9c18e.firebaseapp.com",
-  databaseURL: "https://habito-9c18e-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "habito-9c18e",
-  storageBucket: "habito-9c18e.firebasestorage.app",
+  apiKey:            "AIzaSyAKwdp3SjLzSJnYLm14UPikLsdyQVbjibE",
+  authDomain:        "habito-9c18e.firebaseapp.com",
+  databaseURL:       "https://habito-9c18e-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId:         "habito-9c18e",
+  storageBucket:     "habito-9c18e.firebasestorage.app",
   messagingSenderId: "231795881636",
-  appId: "1:231795881636:web:326c442a566e2e72f8d831"
+  appId:             "1:231795881636:web:326c442a566e2e72f8d831"
 };
-const app = initializeApp(firebaseConfig);
-const db  = getDatabase(app);
-// ─────────────────────────────────────────────
+const fbApp = initializeApp(firebaseConfig);
+const auth  = getAuth(fbApp);
+const db    = getFirestore(fbApp);
 
-// ── ローカル状態 ──
-let roomId   = null;
-let isOwner  = false;   // true = 作成者(owner), false = 参加者(joiner)
-let myRole   = '';      // 'owner' | 'joiner'
-let snapshot = {};      // Firebaseの最新データ
+// ═══════════════════════════════════════════
+//  状態
+// ═══════════════════════════════════════════
+let currentUser  = null;   // Firebase Auth ユーザー
+let currentRoomId= null;   // 参加中ルームID
+let myRole       = null;   // 'owner' | 'joiner'
+let roomSnap     = {};     // Firestoreの最新roomデータ
+let unsubRoom    = null;   // onSnapshotの解除関数
+let setupGoal    = 10;
 
-let setupGoal = 10;
-let calYear, calMonth;
-const now = new Date();
-calYear = now.getFullYear(); calMonth = now.getMonth();
+const today = new Date();
+let calYear  = today.getFullYear();
+let calMonth = today.getMonth();
 
-// ── ユーティリティ ──
+// ═══════════════════════════════════════════
+//  ユーティリティ
+// ═══════════════════════════════════════════
 function todayKey() {
-  return now.getFullYear() + '-' +
-    String(now.getMonth()+1).padStart(2,'0') + '-' +
-    String(now.getDate()).padStart(2,'0');
+  return today.getFullYear() + '-' +
+    String(today.getMonth()+1).padStart(2,'0') + '-' +
+    String(today.getDate()).padStart(2,'0');
 }
 function genRoomId() {
   const c = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   return Array.from({length:6}, () => c[Math.floor(Math.random()*c.length)]).join('');
 }
 
-// ── 画面制御 ──
+// ═══════════════════════════════════════════
+//  画面制御
+// ═══════════════════════════════════════════
 window.showScreen = id => {
   document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
@@ -345,14 +421,84 @@ window.changeCount = d => {
   document.getElementById('count-val').textContent = setupGoal;
 };
 window.copyRoomId = () => {
-  navigator.clipboard.writeText(roomId).catch(()=>{});
+  navigator.clipboard.writeText(currentRoomId).catch(()=>{});
   const btn = document.querySelector('.copy-btn');
   btn.textContent = 'コピー済み ✓';
   setTimeout(() => btn.textContent = 'コピー', 2000);
 };
-window.showRoomInfo = () => alert('ルームID: ' + roomId + '\n\nパートナーにこのIDを送ってね！');
+window.showRoomInfo = () =>
+  alert('ルームID: ' + currentRoomId + '\n\nパートナーにこのIDを送ってね！');
 
-// ── ルーム作成 ──
+// ═══════════════════════════════════════════
+//  認証
+// ═══════════════════════════════════════════
+window.loginWithGoogle = async () => {
+  const provider = new GoogleAuthProvider();
+  try {
+    await signInWithPopup(auth, provider);
+  } catch(e) {
+    // Safariなどポップアップ失敗時はリダイレクト
+    if (e.code === 'auth/popup-blocked' || e.code === 'auth/popup-closed-by-user') {
+      await signInWithRedirect(auth, provider);
+    } else {
+      alert('ログインに失敗しました: ' + e.message);
+    }
+  }
+};
+
+window.doLogout = async () => {
+  unsubscribeRoom();
+  await signOut(auth);
+  currentRoomId = null; myRole = null; roomSnap = {};
+};
+
+// リダイレクト結果の処理（Safari対策）
+getRedirectResult(auth).catch(() => {});
+
+// ─── 認証状態の監視（アプリのエントリポイント） ───
+onAuthStateChanged(auth, async user => {
+  if (!user) {
+    unsubscribeRoom();
+    currentUser = null; currentRoomId = null;
+    window.showScreen('login');
+    return;
+  }
+
+  currentUser = user;
+
+  // users/{uid} を取得 or 作成
+  const userRef  = doc(db, 'users', user.uid);
+  const userSnap = await getDoc(userRef);
+
+  if (!userSnap.exists()) {
+    await setDoc(userRef, {
+      displayName:   user.displayName || '',
+      photoURL:      user.photoURL    || '',
+      currentRoomId: null,
+      createdAt:     serverTimestamp()
+    });
+  }
+
+  const userData = userSnap.exists() ? userSnap.data() : { currentRoomId: null };
+
+  // ユーザー情報をUIに反映
+  document.getElementById('user-display-name').textContent = user.displayName || 'ユーザー';
+  const avatarEl = document.getElementById('user-avatar');
+  if (user.photoURL) {
+    avatarEl.innerHTML = `<img src="${user.photoURL}" alt="avatar">`;
+  }
+
+  if (userData.currentRoomId) {
+    // ルーム所属済み → 自動でメイン画面へ
+    await enterRoom(userData.currentRoomId, user.uid);
+  } else {
+    window.showScreen('room-select');
+  }
+});
+
+// ═══════════════════════════════════════════
+//  ルーム作成
+// ═══════════════════════════════════════════
 window.createRoom = async () => {
   const myName  = document.getElementById('my-name').value.trim();
   const pName   = document.getElementById('partner-name').value.trim();
@@ -360,86 +506,146 @@ window.createRoom = async () => {
   const reward  = document.getElementById('reward-input').value.trim();
   if (!myName || !pName || !habit || !reward) { alert('すべて入力してください'); return; }
 
-  roomId  = genRoomId();
-  isOwner = true;
-  myRole  = 'owner';
+  const roomId = genRoomId();
 
-  await set(ref(db, 'rooms/' + roomId), {
-    habitName: habit, reward, goal: setupGoal,
-    ownerName: myName, joinerName: pName,
-    count: 0, records: {},
-    ownerToday: false, joinerToday: false
+  // rooms/{roomId} を作成
+  await setDoc(doc(db, 'rooms', roomId), {
+    habitName:    habit,
+    reward:       reward,
+    goal:         setupGoal,
+    ownerUid:     currentUser.uid,
+    joinerUid:    null,
+    ownerName:    myName,
+    joinerName:   pName,
+    count:        0,
+    ownerToday:   false,
+    joinerToday:  false,
+    lastResetDate: todayKey(),
+    records:      {},
+    createdAt:    serverTimestamp()
   });
+
+  // users/{uid}.currentRoomId を更新
+  await updateDoc(doc(db, 'users', currentUser.uid), { currentRoomId: roomId });
 
   document.getElementById('room-id-display').textContent = roomId;
   document.getElementById('room-badge').style.display = 'flex';
-  setTimeout(() => enterMain(), 1200);
+
+  setTimeout(() => enterRoom(roomId, currentUser.uid), 1200);
 };
 
-// ── ルーム参加 ──
+// ═══════════════════════════════════════════
+//  ルーム参加
+// ═══════════════════════════════════════════
 window.joinRoom = async () => {
   const name = document.getElementById('join-name').value.trim();
   const rid  = document.getElementById('join-room-id').value.trim().toUpperCase();
   if (!name || rid.length !== 6) { alert('名前とルームIDを入力してください'); return; }
 
-  const snap = await get(ref(db, 'rooms/' + rid));
-  if (!snap.exists()) { alert('ルームが見つかりません'); return; }
+  const roomRef  = doc(db, 'rooms', rid);
+  const roomSnap = await getDoc(roomRef);
+  if (!roomSnap.exists()) { alert('ルームが見つかりません'); return; }
 
-  roomId  = rid;
-  isOwner = false;
-  myRole  = 'joiner';
+  const data = roomSnap.data();
+  if (data.joinerUid && data.joinerUid !== currentUser.uid) {
+    alert('このルームにはすでに参加者がいます');
+    return;
+  }
 
-  // joiner名を上書き保存
-  await update(ref(db, 'rooms/' + roomId), { joinerName: name });
-  enterMain();
+  // joinerUidを設定（トランザクションで二重参加防止）
+  await runTransaction(db, async tx => {
+    const snap = await tx.get(roomRef);
+    if (snap.data().joinerUid && snap.data().joinerUid !== currentUser.uid) {
+      throw new Error('already taken');
+    }
+    tx.update(roomRef, { joinerUid: currentUser.uid, joinerName: name });
+  }).catch(() => { alert('参加に失敗しました'); return; });
+
+  await updateDoc(doc(db, 'users', currentUser.uid), { currentRoomId: rid });
+  await enterRoom(rid, currentUser.uid);
 };
 
-// ── メイン画面へ ──
-function enterMain() {
+// ═══════════════════════════════════════════
+//  ルーム入室 & リアルタイム購読
+// ═══════════════════════════════════════════
+async function enterRoom(roomId, uid) {
+  currentRoomId = roomId;
+
+  // ownerかjoinerかを判定
+  const snap = await getDoc(doc(db, 'rooms', roomId));
+  if (!snap.exists()) {
+    // ルームが削除されている場合はリセット
+    await updateDoc(doc(db, 'users', uid), { currentRoomId: null });
+    window.showScreen('room-select');
+    return;
+  }
+  myRole = snap.data().ownerUid === uid ? 'owner' : 'joiner';
+
+  // 日付またぎリセット
+  await resetTodayIfNeeded(roomId, snap.data());
+
   window.showScreen('main');
-  listenRoom();
+  subscribeRoom(roomId);
 }
 
-// ── Firebaseリアルタイム購読 ──
-function listenRoom() {
-  onValue(ref(db, 'rooms/' + roomId), snap => {
+function subscribeRoom(roomId) {
+  unsubscribeRoom();
+  unsubRoom = onSnapshot(doc(db, 'rooms', roomId), snap => {
     if (!snap.exists()) return;
-    snapshot = snap.val();
+    roomSnap = snap.data();
     refreshMain();
   });
 }
 
-// ── メイン画面の描画 ──
+function unsubscribeRoom() {
+  if (unsubRoom) { unsubRoom(); unsubRoom = null; }
+}
+
+// ═══════════════════════════════════════════
+//  日付またぎリセット
+// ═══════════════════════════════════════════
+async function resetTodayIfNeeded(roomId, data) {
+  if (data.lastResetDate !== todayKey()) {
+    await updateDoc(doc(db, 'rooms', roomId), {
+      ownerToday:    false,
+      joinerToday:   false,
+      lastResetDate: todayKey()
+    });
+  }
+}
+
+// ═══════════════════════════════════════════
+//  メイン画面の描画
+// ═══════════════════════════════════════════
 function refreshMain() {
-  const d = snapshot;
+  const d = roomSnap;
   if (!d) return;
 
   document.getElementById('main-habit-name').textContent  = d.habitName || '-';
   document.getElementById('main-reward-hint').textContent = (d.goal||10) + '回達成で' + (d.reward||'ご褒美');
 
+  const isOwner     = myRole === 'owner';
   const myName      = isOwner ? d.ownerName  : d.joinerName;
   const partnerName = isOwner ? d.joinerName : d.ownerName;
   const myDone      = isOwner ? d.ownerToday : d.joinerToday;
-  const partnerDone = isOwner ? d.joinerToday : d.ownerToday;
+  const partnerDone = isOwner ? d.joinerToday: d.ownerToday;
 
   document.getElementById('me-card-name').textContent      = myName      || 'あなた';
   document.getElementById('partner-card-name').textContent = partnerName || 'パートナー';
-
   setCard('me-card',      'me-status',      myDone);
   setCard('partner-card', 'partner-status', partnerDone);
 
   const cnt  = d.count || 0;
   const goal = d.goal  || 10;
-  document.getElementById('progress-text').textContent    = cnt + ' / ' + goal;
-  document.getElementById('progress-fill').style.width   = Math.min(100, cnt/goal*100) + '%';
+  document.getElementById('progress-text').textContent  = cnt + ' / ' + goal;
+  document.getElementById('progress-fill').style.width  = Math.min(100, cnt/goal*100) + '%';
 
   updateDoitBtn(myDone, partnerDone);
-
-  if (cnt >= goal) setTimeout(showReward, 600);
+  if (cnt > 0 && cnt >= goal) setTimeout(showReward, 600);
 }
 
 function setCard(cardId, statusId, done) {
-  document.getElementById(cardId).className  = 'partner-card' + (done ? ' done' : '');
+  document.getElementById(cardId).className = 'partner-card' + (done ? ' done' : '');
   const s = document.getElementById(statusId);
   s.className = 'p-status ' + (done ? 'done' : 'pending');
   s.innerHTML = `<div class="dot ${done?'done':'pending'}"></div><span>${done?'やった！':'まだ'}</span>`;
@@ -460,40 +666,47 @@ function updateDoitBtn(myDone, partnerDone) {
   }
 }
 
-// ── 今日の記録 ──
+// ═══════════════════════════════════════════
+//  今日の記録
+// ═══════════════════════════════════════════
 window.recordToday = async () => {
-  const myDoneKey = isOwner ? 'ownerToday' : 'joinerToday';
-  const ptDoneKey = isOwner ? 'joinerToday' : 'ownerToday';
-  if (snapshot[myDoneKey]) return;
+  const isOwner    = myRole === 'owner';
+  const myKey      = isOwner ? 'ownerToday'  : 'joinerToday';
+  const partnerKey = isOwner ? 'joinerToday' : 'ownerToday';
+  if (roomSnap[myKey]) return;
 
-  const today      = todayKey();
-  const partnerDone = snapshot[ptDoneKey];
-  const updates    = { [myDoneKey]: true };
+  const today       = todayKey();
+  const partnerDone = roomSnap[partnerKey];
+  const updates     = { [myKey]: true };
 
-  // 相手も済んでいれば協力カウント+1 & records更新
   if (partnerDone) {
-    updates.count = (snapshot.count || 0) + 1;
-    updates['records/' + today + '/both'] = true;
+    updates.count = (roomSnap.count || 0) + 1;
+    updates[`records.${today}.both`] = true;
   }
-  updates['records/' + today + '/me_' + myRole] = true;
+  updates[`records.${today}.me_${myRole}`] = true;
 
-  await update(ref(db, 'rooms/' + roomId), updates);
+  await updateDoc(doc(db, 'rooms', currentRoomId), updates);
 };
 
-// ── ご褒美 ──
+// ═══════════════════════════════════════════
+//  ご褒美
+// ═══════════════════════════════════════════
 function showReward() {
+  if (document.getElementById('reward-overlay').classList.contains('show')) return;
   document.getElementById('reward-msg').textContent =
-    '2人で' + (snapshot.goal||10) + '回達成しました！\n' + (snapshot.reward||'ご褒美') + 'を楽しんでね 🎁';
+    '2人で' + (roomSnap.goal||10) + '回達成しました！\n' + (roomSnap.reward||'ご褒美') + 'を楽しんでね 🎁';
   document.getElementById('reward-overlay').classList.add('show');
 }
 window.closeReward = async () => {
   document.getElementById('reward-overlay').classList.remove('show');
-  await update(ref(db, 'rooms/' + roomId), {
+  await updateDoc(doc(db, 'rooms', currentRoomId), {
     count: 0, ownerToday: false, joinerToday: false
   });
 };
 
-// ── カレンダー ──
+// ═══════════════════════════════════════════
+//  カレンダー
+// ═══════════════════════════════════════════
 window.changeMonth = d => {
   calMonth += d;
   if (calMonth < 0)  { calMonth = 11; calYear--; }
@@ -503,10 +716,10 @@ window.changeMonth = d => {
 function renderCalendar() {
   const months = ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月'];
   document.getElementById('month-label').textContent = calYear + '年' + months[calMonth];
-  const first   = new Date(calYear, calMonth, 1).getDay();
-  const days    = new Date(calYear, calMonth+1, 0).getDate();
+  const first    = new Date(calYear, calMonth, 1).getDay();
+  const days     = new Date(calYear, calMonth+1, 0).getDate();
   const todayStr = todayKey();
-  const records  = (snapshot && snapshot.records) ? snapshot.records : {};
+  const records  = (roomSnap && roomSnap.records) ? roomSnap.records : {};
   const grid = document.getElementById('cal-days');
   grid.innerHTML = '';
   for (let i = 0; i < first; i++) {
@@ -517,9 +730,9 @@ function renderCalendar() {
     const rec = records[key];
     const el  = document.createElement('div');
     el.className = 'day-cell';
-    if (rec && rec.both)               el.classList.add('both');
-    else if (rec && (rec.me_owner || rec.me_joiner)) el.classList.add('one');
-    if (key === todayStr)              el.classList.add('today-cell');
+    if (rec && rec.both)                       el.classList.add('both');
+    else if (rec && (rec.me_owner||rec.me_joiner)) el.classList.add('one');
+    if (key === todayStr)                      el.classList.add('today-cell');
     el.textContent = d;
     grid.appendChild(el);
   }
